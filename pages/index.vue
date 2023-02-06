@@ -51,6 +51,7 @@ const setRating = async () => {
 const findGaps = async () => {
   const rating = await getRatings([selected.value]);
   console.log(rating.length + " imges rated");
+  console.log(rating.length / max + "% of dataset is done");
   const ids = rating.map((r) => parseInt(r.id));
   if (ids.length === 0) return;
   last = ids[ids.length - 1];

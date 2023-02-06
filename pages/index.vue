@@ -123,11 +123,13 @@ body {
   top: 0;
   width: 64px;
   height: 64px;
-  background-color: #e3a20a;
+  background-color: #f7dc9e;
   border-radius: 0 0 16px 0;
   display: flex;
+  color: black;
   justify-content: center;
   align-items: center;
+  z-index: 20;
   h1 {
     margin: 0;
   }

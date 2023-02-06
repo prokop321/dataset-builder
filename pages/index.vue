@@ -1,4 +1,7 @@
 <template>
+  <div class="score">
+    <h1>{{ score }}</h1>
+  </div>
   <div class="select" v-if="selected === ''">
     <h1>train AI</h1>
     <h2>What do you want to rate?</h2>
@@ -17,7 +20,10 @@
 </template>
 
 <script lang="ts" setup>
+import { identifier } from "@babel/types";
 import { addDocToFirestore, getRatings } from "../utils/fb/add";
+
+const score = ref(0);
 const max = 999;
 let finalArray: number[] = [];
 const selected = ref("");
@@ -46,6 +52,8 @@ const setRating = async () => {
   const name = current.value.toString();
   await addDocToFirestore([selected.value], { rating: rate, id: parseInt(name) }, name);
   rating.value = 0;
+  score.value++;
+  localStorage.setItem("score", score.value.toString());
 };
 
 const findGaps = async () => {
@@ -75,6 +83,17 @@ const getImageID = () => {
   current.value = finalArray[index];
   //remove current from array
 };
+
+const getScore = () => {
+  if (localStorage.getItem("score") === null) {
+    localStorage.setItem("score", "0");
+  }
+  score.value = parseInt(localStorage.getItem("score") || "0");
+};
+
+onMounted(async () => {
+  getScore();
+});
 </script>
 
 <style lang="scss">
@@ -96,6 +115,21 @@ body {
     padding: 8px 16px;
     margin: 4px;
     cursor: pointer;
+  }
+}
+
+.score {
+  position: fixed;
+  top: 0;
+  width: 64px;
+  height: 64px;
+  background-color: #e3a20a;
+  border-radius: 0 0 16px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    margin: 0;
   }
 }
 .rating {

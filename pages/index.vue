@@ -81,6 +81,7 @@ body {
   padding: 0;
   font-family: "arial";
   background-color: rgb(1, 13, 24);
+  color: white;
 }
 .rating {
   display: flex;
@@ -100,14 +101,16 @@ body {
   }
   img {
     width: 100%;
-    max-height: 80vh;
+    height: 90vh;
+    top: 5vh;
     object-fit: contain;
-    border-radius: 4px;
+    position: absolute;
   }
   h3 {
+    position: absolute;
     font-weight: bold;
     margin: 0.4em;
-    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
     font-size: 1.5rem;
   }
   input {

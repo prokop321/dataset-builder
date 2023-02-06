@@ -1,5 +1,5 @@
 <template>
-  <div v-if="selected === ''">
+  <div class="select" v-if="selected === ''">
     <h1>train AI</h1>
     <h2>What do you want to rate?</h2>
     <button @click="select('serioznost')">serioznost</button>
@@ -83,6 +83,19 @@ body {
   background-color: rgb(1, 13, 24);
   color: white;
 }
+
+.select {
+  text-align: center;
+  button {
+    background-color: #065751;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+  }
+}
 .rating {
   display: flex;
   flex-direction: column;
@@ -114,7 +127,7 @@ body {
     font-size: 1.5rem;
   }
   input {
-    width: 95%;
+    width: 85%;
     accent-color: #1c7ed4;
     max-width: 512px;
   }

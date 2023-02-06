@@ -16,6 +16,7 @@
 
 <script lang="ts" setup>
 import { addDocToFirestore, getRatings } from "../utils/fb/add";
+
 const max = 170;
 let finalArray: number[] = [];
 const selected = ref("");

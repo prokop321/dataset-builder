@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import { addDocToFirestore, getRatings } from "../utils/fb/add";
-const max = 712;
+const max = 919;
 let finalArray: number[] = [];
 const selected = ref("");
 const rating = ref(0);
@@ -50,6 +50,7 @@ const setRating = async () => {
 
 const findGaps = async () => {
   const rating = await getRatings([selected.value]);
+  console.log(rating.length + " imges rated");
   const ids = rating.map((r) => parseInt(r.id));
   if (ids.length === 0) return;
   last = ids[ids.length - 1];

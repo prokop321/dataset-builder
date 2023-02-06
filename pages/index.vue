@@ -8,15 +8,17 @@
   <div class="rating" v-else>
     <h3>{{ selected }}</h3>
     <img :src="'/images/rating/' + current + '.jpg'" />
-    <input type="range" max="15" v-model="rating" />
-    <span>{{ Math.floor(rating * (100 / 15)) }}</span>
-    <div><button @click="skip">skip</button> <button @click="next">next</button></div>
+    <div class="ui">
+      <input type="range" max="15" v-model="rating" />
+      <span>{{ Math.floor(rating * (100 / 15)) }}</span>
+      <div><button @click="skip">skip</button> <button @click="next">next</button></div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { addDocToFirestore, getRatings } from "../utils/fb/add";
-const max = 170;
+const max = 242;
 let finalArray: number[] = [];
 const selected = ref("");
 const rating = ref(0);
@@ -78,21 +80,50 @@ const getImageID = () => {
 body {
   margin: 0;
   padding: 0;
+  font-family: "arial";
+  background-color: rgb(1, 13, 24);
 }
 .rating {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+
+  .ui {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
   img {
     width: 100%;
     max-height: 80vh;
     object-fit: contain;
+    border-radius: 4px;
+  }
+  h3 {
+    font-weight: bold;
+    margin: 0.4em;
+    color: white;
+    font-size: 1.5rem;
   }
   input {
     width: 95%;
     accent-color: #1c7ed4;
     max-width: 512px;
+  }
+  button {
+    background-color: #065751;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 16px 24px;
+    font-size: 1.4em;
+    cursor: pointer;
   }
 }
 </style>

@@ -5,7 +5,7 @@
     <button @click="select('serioznost')">serioznost</button>
     <button @click="select('vtipnost')">vtipnost</button>
   </div>
-  <div class="rating" v-else>
+  <div v-else class="rating">
     <h3>{{ selected }}</h3>
     <img :src="'/images/rating/' + current + '.jpg'" />
     <div class="ui">
@@ -24,7 +24,7 @@ const selected = ref("");
 const rating = ref(0);
 const current = ref(0);
 const gaps: number[] = [];
-let last: number = 0;
+let last = 0;
 let index: number;
 
 const select = async (name: string) => {
@@ -46,7 +46,6 @@ const setRating = async () => {
   const name = current.value.toString();
   await addDocToFirestore([selected.value], { rating: rate, id: parseInt(name) }, name);
   rating.value = 0;
-  return;
 };
 
 const findGaps = async () => {

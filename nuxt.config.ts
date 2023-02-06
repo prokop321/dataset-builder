@@ -1,5 +1,6 @@
 export default defineNuxtConfig({
-  routeRules: {
-    "/admin/**": { ssr: false },
+  ssr: false,
+  imports: {
+    dirs: ["utils/**"],
   },
 });

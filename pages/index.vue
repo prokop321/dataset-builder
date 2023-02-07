@@ -108,13 +108,13 @@ const downloadJson = async () => {
   let serioznostData: any = await FStoJSON(["serioznost"]);
   let vtipnostData: any = await FStoJSON(["vtipnost"]);
   serioznostData.forEach((s: any) => {
-    s.url = document.URL + "images/rating/" + s.id + ".jpg";
+    s.name = s.id + ".jpg";
     delete s.id;
 
     s.rating = Math.round(s.rating * 100) / 100;
   });
   vtipnostData.forEach((s: any) => {
-    s.url = document.URL + "images/rating/" + s.id + ".jpg";
+    s.name = s.id + ".jpg";
     delete s.id;
     s.rating = Math.round(s.rating * 100) / 100;
   });

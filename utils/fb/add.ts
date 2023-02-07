@@ -20,3 +20,9 @@ export const getRatings = async (storageArr: string[]) => {
   console.log(storageArr);
   return snapshot.docs.map((doc) => doc.data());
 };
+
+export const FStoJSON = async (storageArr: string[]) => {
+  const q = await query(collection(db, storageArr[0], ...storageArr.slice(1)), orderBy("id"));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => doc.data());
+};

@@ -7,6 +7,9 @@
     <h2>What do you want to rate?</h2>
     <button @click="select('serioznost')">serioznost</button>
     <button @click="select('vtipnost')">vtipnost</button>
+    <div class="download">
+      <button @click="downloadJson">download json</button>
+    </div>
   </div>
   <div v-else class="rating">
     <h3>{{ selected }}</h3>
@@ -21,7 +24,8 @@
 
 <script lang="ts" setup>
 import { identifier } from "@babel/types";
-import { addDocToFirestore, getRatings } from "../utils/fb/add";
+import { addDocToFirestore, getRatings, FStoJSON } from "../utils/fb/add";
+import { fstat } from "fs";
 
 const score = ref(0);
 const max = 999;
@@ -94,6 +98,34 @@ const getScore = () => {
 onMounted(async () => {
   getScore();
 });
+
+const downloadJson = async () => {
+  let serioznostData: any = await FStoJSON(["serioznost"]);
+  let vtipnostData: any = await FStoJSON(["vtipnost"]);
+  serioznostData.forEach((s: any) => {
+    s.url = document.URL + "images/rating/" + s.id + ".jpg";
+    delete s.id;
+
+    s.rating = Math.round(s.rating * 100) / 100;
+  });
+  vtipnostData.forEach((s: any) => {
+    s.url = document.URL + "images/rating/" + s.id + ".jpg";
+    delete s.id;
+    s.rating = Math.round(s.rating * 100) / 100;
+  });
+  serioznostData = JSON.stringify(serioznostData);
+  vtipnostData = JSON.stringify(vtipnostData);
+  download(serioznostData, "serioznost.json", "text/plain");
+  download(vtipnostData, "vtipnost.json", "text/plain");
+};
+
+const download = (content: string, fileName: string, contentType: string) => {
+  const a = document.createElement("a");
+  const file = new Blob([content], { type: contentType });
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
+};
 </script>
 
 <style lang="scss">
@@ -116,6 +148,15 @@ body {
     margin: 4px;
     cursor: pointer;
   }
+}
+
+.download {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 16px 0;
+  display: flex;
+  justify-content: center;
 }
 
 .score {

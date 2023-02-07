@@ -28,7 +28,7 @@ import { addDocToFirestore, getRatings, FStoJSON } from "../utils/fb/add";
 import { fstat } from "fs";
 
 const score = ref(0);
-const max = 999;
+const max = 1368;
 let finalArray: number[] = [];
 const selected = ref("");
 const rating = ref(0);

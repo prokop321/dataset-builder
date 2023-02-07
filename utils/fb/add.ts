@@ -17,7 +17,6 @@ export const addDocToFirestore = async (collectionNames: string[], data: object,
 export const getRatings = async (storageArr: string[]) => {
   const q = await query(collection(db, storageArr[0], ...storageArr.slice(1)), orderBy("id"));
   const snapshot = await getDocs(q);
-  console.log(storageArr);
   return snapshot.docs.map((doc) => doc.data());
 };
 

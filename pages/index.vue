@@ -7,6 +7,8 @@
     <h2>What do you want to rate?</h2>
     <button @click="select('serioznost')">serioznost</button>
     <button @click="select('vtipnost')">vtipnost</button>
+    <h3>Dataset is from {{ perecent }}% done.</h3>
+    <h4>Dataset will get bigger in future so percent may go down.</h4>
     <div class="download">
       <button @click="downloadJson">download json</button>
     </div>
@@ -36,6 +38,7 @@ const current = ref(0);
 const gaps: number[] = [];
 let last = 0;
 let index: number;
+const perecent = ref(0);
 
 const select = async (name: string) => {
   selected.value = name;
@@ -97,6 +100,8 @@ const getScore = () => {
 
 onMounted(async () => {
   getScore();
+  const total = (await getRatings(["vtipnost"])).length + (await getRatings(["serioznost"])).length;
+  perecent.value = Math.round((total / (max * 2)) * 100);
 });
 
 const downloadJson = async () => {
@@ -147,6 +152,10 @@ body {
     padding: 8px 16px;
     margin: 4px;
     cursor: pointer;
+  }
+  h4 {
+    font-weight: lighter;
+    font-size: 0.6em;
   }
 }
 

@@ -6,13 +6,13 @@
     <h1>train AI</h1>
     <h2>What do you want to rate?</h2>
     <button @click="select('serioznost')">serioznost</button>
-    <button @click="select('vtipnost')">vtipnost</button>
+    <button @click="select('vtipnost')">Zábavnost</button>
     <div class="download">
       <button @click="downloadJson">download json</button>
     </div>
   </div>
   <div v-else class="rating">
-    <h3>{{ selected }}</h3>
+    <h3>{{ value() }}</h3>
     <img :src="'/images/rating/' + current + '.jpg'" />
     <div class="ui">
       <input type="range" max="15" v-model="rating" />
@@ -37,6 +37,16 @@ const gaps: number[] = [];
 let last = 0;
 let index: number;
 const perecent = ref(0);
+
+const value = () => {
+  if (selected.value === "serioznost") {
+    return "serioznost";
+  } else if (selected.value === "vtipnost") {
+    return "Zábavnost";
+  } else {
+    return "";
+  }
+};
 
 const select = async (name: string) => {
   selected.value = name;
